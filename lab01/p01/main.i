@@ -16125,7 +16125,7 @@ namespace __cxx11 {
   template<typename _CharT, typename _Traits, typename _Alloc>
     inline basic_ostream<_CharT, _Traits>&
     operator<<(basic_ostream<_CharT, _Traits>& __os,
-        const basic_string<_CharT, _Traits, _Alloc>& __str)
+        const basic_string<_CharT, _Traits, _Alloc>& __str) // declaration of operator<<
     {
 
 
@@ -28602,7 +28602,7 @@ namespace std __attribute__ ((__visibility__ ("default")))
 
 # 60 "/usr/include/c++/9/iostream" 3
   extern istream cin;
-  extern ostream cout;
+  extern ostream cout;    // declaration of cout
   extern ostream cerr;
   extern ostream clog;
 
@@ -28624,6 +28624,6 @@ namespace std __attribute__ ((__visibility__ ("default")))
 
 # 3 "main.cpp"
 int main() {
- std::cout << "Hello, C++ " << 201402L << "!!!\n";
+ std::cout << "Hello, C++ " << 201402L << "!!!\n"; // __cplusplus
  return 0;
 }
