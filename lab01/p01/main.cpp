@@ -1,6 +1,9 @@
 #include <iostream>
 
-int main() {
+int main() 
+{
+#ifdef AUCA_DEBUG
+	std::cout << "Author: Amonbekov Behruz\n";
+#endif
 	std::cout << "Hello, C++ " << __cplusplus << "!!!\n";
-	return 0;
 }
