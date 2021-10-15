@@ -3,29 +3,34 @@
 using namespace std;
 
 int main() {
-    int T; cin >> T;
+    int T; 
+    cin >> T;
 
-    for(int j = 0; j < T; j++) 
-    {
-        int numberOfWalls = 0; cin >> numberOfWalls;
-        int currentHeight = 0; 
-        int totalHighs = 0;
-        int totalLows = 0;
+    for(int i = 0; i < T; i++) {
+        int walls; 
+        cin >> walls;
+        int highs = 0;
+        int lows = 0;
+        int current = 0;
 
-        if(numberOfWalls > 1) {
-            for(int i = 0; i < numberOfWalls - 2; i++) {
-                int height; cin >> height;
-
-                if(currentHeight - height > 0) {
-                    totalLows++;
-                    currentHeight = height;
-                } 
-                if (currentHeight - height < 0){
-                    totalHighs++;
-                    currentHeight = height;  
-                }
+        for (int j = 0; j < walls; j++)
+        {
+            int height;
+            cin >> height;
+            if(current == 0) {
+                current = height; 
             }
-        }
-        cout << "Case " << j + 1 << ": " << totalHighs << " " << totalLows << '\n'; 
+
+            if(current - height > 0) {
+                lows++;
+
+            } else if(current - height < 0) {
+                highs++;
+            }
+            
+            current = height;
+       }
+        
+        cout << "Case " << i+1 << ": " << highs << " " << lows <<'\n';
     }
 }
