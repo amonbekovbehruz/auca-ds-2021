@@ -31,6 +31,6 @@ int main() {
             sum = sum/100 + sum/10 + sum%10;
         }
         
-        cout << sum;
+        cout << sum << '\n';
     }   
 }
