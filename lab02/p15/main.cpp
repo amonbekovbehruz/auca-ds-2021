@@ -27,11 +27,11 @@ int main()
 
         auto posMax = max_element(begin(v), end(v));
 
-        cout << "Case " << i << ":\n";
+        cout << "Case #" << i << ":\n";
 
         for (int j = 0; j < sz(s); ++j) {
             if (v[j] == *posMax) {
-                cout << s[j] << " " << "\n";
+                cout << s[j] << "\n";
             }
         }
     }
