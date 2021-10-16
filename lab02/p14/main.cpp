@@ -7,7 +7,7 @@ int main() {
     int cases; cin >> cases;
     bool isOrdered(true), isReverseOrdered(true);
         
-    cout << "Lumberjacks: \n";
+    cout << "Lumberjacks:\n";
     for(int i = 0; i < cases; i++) {
         vector<int> lumberjacks;
         
@@ -15,7 +15,7 @@ int main() {
             int s;
             cin >> s;
             lumberjacks.push_back(s);
-        }        
+        }  // Ovnocode      
         
         int beardLength;
         string str;
