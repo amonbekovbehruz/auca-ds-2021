@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -189,7 +190,24 @@ TEST_CASE("the work of std::sort algorithm with std::vector")
     REQUIRE(v[2] == 3);
     REQUIRE(v[3] == 4);
     REQUIRE(v[4] == 5);           
-} TEST_CASE("the work of std::binary_search algorithm with std::vector") 
+} 
+
+TEST_CASE("the work of std::binary_search algorithm with std::vector") 
 {
+    vector<int> v = {2, 1, 4, 5, 3};
+
+    sort(v.begin(), v.end());
     
+    REQUIRE(binary_search(v.begin(), v.end(), 5));
+
+    vector<int> v2 = {2, 1, 4, 5, 3, 6, 8, 7, 10, 9};
+
+    sort(v2.begin(), v2.end());
+
+    REQUIRE(binary_search(v2.begin(), v2.end(), 1));
+}
+
+TEST_CASE("") 
+{
+
 }
