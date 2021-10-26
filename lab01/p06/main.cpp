@@ -207,7 +207,23 @@ TEST_CASE("the work of std::binary_search algorithm with std::vector")
     REQUIRE(binary_search(v2.begin(), v2.end(), 1));
 }
 
-TEST_CASE("") 
+TEST_CASE("the work of std::min_element algorithm with std::vector") 
 {
+    vector<int> v = {2, 1, 4, 5, 3};
 
+    vector<int>::iterator it = min_element(v.begin(), v.end());
+
+    REQUIRE(*it == 1);
+
+    vector<int> v2 = { 0, 1000, 4896, 321654, 5};
+
+    vector<int>::iterator it2 = min_element(v2.begin(), v2.end());
+
+    REQUIRE(*it2 == 0);
+
+    vector<int> v3 = { 1000, 4896, 3 , 321654, 5};
+
+    vector<int>::iterator it3 = min_element(v3.begin(), v3.end());
+
+    REQUIRE(*it3 == 3);
 }
