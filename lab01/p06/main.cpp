@@ -171,3 +171,25 @@ TEST_CASE("the work of std::reverse algorithm with std::vector")
 }
 
 TEST_CASE("the work of std::sort algorithm with std::vector")
+{
+    vector<int> v = {1, 2, 3, 4, 5};
+
+    reverse(v.begin(), v.end());
+
+    REQUIRE(v[0] == 5);    
+    REQUIRE(v[1] == 4);
+    REQUIRE(v[2] == 3);
+    REQUIRE(v[3] == 2);
+    REQUIRE(v[4] == 1);
+
+    sort(v.begin(), v.end());
+
+    REQUIRE(v[0] == 1);    
+    REQUIRE(v[1] == 2);
+    REQUIRE(v[2] == 3);
+    REQUIRE(v[3] == 4);
+    REQUIRE(v[4] == 5);           
+} TEST_CASE("the work of std::binary_search algorithm with std::vector") 
+{
+    
+}
