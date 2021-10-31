@@ -227,3 +227,63 @@ TEST_CASE("the work of std::min_element algorithm with std::vector")
 
     REQUIRE(*it3 == 3);
 }
+
+TEST_CASE("the work of std::max_element algorithm with std::vector") 
+{
+    using iterator = vector<int>::iterator;
+
+    vector<int> v = {2, 1, 4, 5, 3};
+
+    iterator it = max_element(v.begin(), v.end());
+
+    REQUIRE(*it == 5);
+
+    vector<int> v2 = { 0, 1000, 4896, 321654, 5};
+
+    iterator it2 = max_element(v2.begin(), v2.end());
+
+    REQUIRE(*it2 == 321654);
+
+    vector<int> v3 = { -1000, -4896, 3 , 464491, 5};
+
+    iterator it3 = max_element(v3.begin(), v3.end());
+
+    REQUIRE(*it3 == 464491);
+}
+
+TEST_CASE("type std::vector<T>::iterator: *, ++, --, it + n, it – n") 
+{
+    int n = 3;
+    vector<int> v = {2, 1, 4, 5, 3};
+    auto it = max_element(v.begin(), v.end());
+
+    it++;
+    REQUIRE(*it == 3);
+
+    it--;
+    REQUIRE(*it == 5);
+
+    vector<int> v2 = {2, 1, 4, 5, 3, 5, 9, 15, 4};
+    auto it2 = min_element(v2.begin(), v2.end());
+    
+    it2 += n;
+    REQUIRE(*it2 == 3);
+
+    n = 1;
+
+    it2 -= n;
+    REQUIRE(*it2 == 5);
+}
+
+TEST_CASE("type std::vector<T>::iterator: it2 - it1")
+{
+    vector<int> v = {2, 1, 4, 5, 3};
+
+    auto it = max_element(v.begin(), v.end());
+    auto it2 = min_element(v.begin(), v.end());
+    auto it3 = *it - *it2;
+
+    REQUIRE((it-it2) == 2);
+    REQUIRE(v[it-it2] == 4);
+    REQUIRE(it3 == 4);
+}
