@@ -64,12 +64,12 @@ void printDeck(const vector<int> &deck)
     static vector<string> suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
     
     for(auto card: deck) 
-    {
+    { 
         cout << ranks[card%13] << " of " << suits[card/13] << endl;
     }
 }
 
-void applyShuffleToDeck(vector<int>& deck, const vector<int>& shuffle) {
+void applyShuffleToDeck (vector<int>& deck, const vector<int>& shuffle) {
     auto v1 = deck;
 
     for(int i = 0; i < 52; i++) 
