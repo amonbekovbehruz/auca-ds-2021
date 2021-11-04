@@ -1,15 +1,7 @@
 #include <bits/stdc++.h>
+#include <stdexcept>
 
 using namespace std;
-
-void printPuzzle(const vector<vector<int>> &puzzle) {
-    for(int i = 0; i < 5; i++) {
-        for(int j = 0; j < 5; j++) {
-            cout << puzzle[i][j] << ' ';
-        }
-        cout << '\n';
-    }    
-}
 
 void horizontalManipulation(int vctr, vector<vector<int>> &puzzle, int &x, int &y) {
     if(vctr == 1) {
@@ -57,15 +49,15 @@ void operations(string line, vector<vector<int>> &puzzle, int &x, int &y) {
         }
     }
 
-    for(int i = 0; i < manipulations.size(); i++) {
+    for(int i = 0; i < (int)manipulations.size(); i++) {
         if(manipulations[i] == 'A') {
-            verticalManipulation(1 , vector<vector<int>> &puzzle, int &x, int &y);
+            verticalManipulation(1 , puzzle, x, y);
         } else if(manipulations[i] == 'D') {
-            verticalManipulation(-1 , vector<vector<int>> &puzzle, int &x, int &y);
+            verticalManipulation(-1 , puzzle, x, y);
         } else if(manipulations[i] == 'R') {
-            horizontalManipulation(1 , vector<vector<int>> &puzzle, int &x, int &y)
-        } else if(manipulations[i] == 'A') {
-            horizontalManipulation(-1 , vector<vector<int>> &puzzle, int &x, int &y)            
+            horizontalManipulation(1 , puzzle, x, y);
+        } else if(manipulations[i] == 'L') {
+            horizontalManipulation(-1 , puzzle, x, y);            
         }   
     }
 }
@@ -75,7 +67,7 @@ vector<char> addLineToPuzzle(string line, int &x, int &y, int iteration) {
     int length = line.size();            
     
     if(length > 5) {
-        throw out_of_range;
+        throw out_of_range("blah");
     }
 
     for(int i = 0; i < (int)line.size(); i++) {
@@ -92,6 +84,15 @@ vector<char> addLineToPuzzle(string line, int &x, int &y, int iteration) {
 vector<vector<char>> createPuzzle() {
     vector<vector<char>> result(5, vector<char>(5, ' '));
     return result;
+}
+
+void printPuzzle (vector<vector<char>> &puzzle) {
+    for(int i = 0; i < 5; i++) {
+        for(int j = 0; j < 5; j++) {
+            cout << puzzle[i][j] << ' ';
+        }
+        cout << '\n';
+    }    
 }
 
 int main() {
@@ -112,7 +113,7 @@ int main() {
                     int iteration = i;
 
                     try{
-                        puzzle[i] = addLineToPuzzle(line, &x, &y, iteration);
+                        puzzle[i] = addLineToPuzzle(line, x, y, iteration);
                     } catch(out_of_range& e) {
                         isComplete = false;
                     }
