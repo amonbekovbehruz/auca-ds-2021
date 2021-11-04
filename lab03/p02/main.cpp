@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void horizontalManipulation(int vctr, vector<vector<int>> &puzzle, int &x, int &y) {
+void horizontalManipulation(int vctr, vector<vector<char>> &puzzle, int &x, int &y) {
     if(vctr == 1) {
         if((x + 1) <= 4) {
             x++;
@@ -21,7 +21,7 @@ void horizontalManipulation(int vctr, vector<vector<int>> &puzzle, int &x, int &
     }
 }
 
-void verticalManipulation(int vctr, vector<vector<int>> &puzzle, int &x, int &y) {
+void verticalManipulation(int vctr, vector<vector<char>> &puzzle, int &x, int &y) {
     if(vctr == 1) {
         if(y + 1 <= 4) {
             y++; 
@@ -40,7 +40,7 @@ void verticalManipulation(int vctr, vector<vector<int>> &puzzle, int &x, int &y)
     }
 }
 
-void operations(string line, vector<vector<int>> &puzzle, int &x, int &y) {
+void operations(string line, vector<vector<char>> &puzzle, int &x, int &y) {
     vector<char> manipulations;
 
     for(int i = 0; i < (int)line.size(); i++) {
@@ -86,12 +86,20 @@ vector<vector<char>> createPuzzle() {
     return result;
 }
 
-void printPuzzle (vector<vector<char>> &puzzle) {
+void printPuzzle (const vector<vector<char>> &puzzle) {
+    string stringPuzzle;
+
     for(int i = 0; i < 5; i++) {
         for(int j = 0; j < 5; j++) {
-            cout << puzzle[i][j] << ' ';
-        }
-        cout << '\n';
+            if (j < 4) {
+                stringPuzzle += (char)puzzle[i][j];
+                stringPuzzle += ' ';
+            } else {
+                stringPuzzle += (char)puzzle[i][j];
+            }
+        }   
+
+        cout << stringPuzzle << '\n';
     }    
 }
 
@@ -112,6 +120,10 @@ int main() {
                     cin >> line;
                     int iteration = i;
 
+                    if(line == "Z") {
+                        return(0);
+                    }
+
                     try{
                         puzzle[i] = addLineToPuzzle(line, x, y, iteration);
                     } catch(out_of_range& e) {
@@ -120,11 +132,13 @@ int main() {
                 } else {
                     string line;
                     cin >> line;
-                    operations(puzzle);
+                    operations(line, puzzle, x, y);
                 }
             }
-
-            printPuzzle(puzzle);
         } 
+        printPuzzle(puzzle);
+        if(!isComplete) {
+            break;
+        }
     }      
 }
