@@ -33,7 +33,7 @@ int main()
             }
         }
 
-        double aboveAverageInPercents = (aboveAverage * 10000.0 / numbersOfStudents);
+        double aboveAverageInPercents = (aboveAverage * 100.0 / numbersOfStudents);
 
         cout << fixed << setprecision(3) << aboveAverageInPercents << "%" << '\n';
     }
