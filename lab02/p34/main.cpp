@@ -11,7 +11,7 @@ bool isContainingSimilarDigits(const int &number)
 
     vector<int> numbers = {digits, dozens, hundreds, thousands};
 
-    if (thousands == 0 && hundreds == 1)
+    if (thousands == 0 && hundreds == 0)
     {
         numbers = {digits, dozens};
     }
