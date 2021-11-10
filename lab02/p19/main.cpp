@@ -15,11 +15,11 @@ int main()
     int test;
     cin >> test;
     cin >> ws;
-    for(int i = 0; i < test; i++)
+    for (int i = 0; i < test; i++)
     {
         getline(cin, line);
         istringstream sinp(line);
-        
+
         int M = 0;
         int F = 0;
         int count = 0;
@@ -34,6 +34,6 @@ int main()
             count++;
         }
 
-        cout << (count > 1 && F != M ? "LOOP\n" : "NO LOOP\n");
+        cout << (count > 1 && F == M ? "LOOP\n" : "NO LOOP\n");
     }
 }
