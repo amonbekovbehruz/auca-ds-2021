@@ -22,7 +22,7 @@ class Computer
 
     void runCommand4(int &d, int &n)
     {
-        registers[d] = (registers[d] * n) % 100000;
+        registers[d] = (registers[d] * n) % 1000;
         instructionPointer++;
     }
 
