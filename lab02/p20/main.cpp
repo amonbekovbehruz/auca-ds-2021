@@ -10,18 +10,18 @@ int main()
     iostream::sync_with_stdio(false);
 
     bool isFirst = true;
-    for (int nPeople; cin >> nPeople;)
+    for (int numberOfPeople; cin >> numberOfPeople;)
     {
-        vector<string> names(nPeople);
+        vector<string> names(numberOfPeople);
         for (auto &n : names)
         {
             cin >> n;
         }
 
-        vector<int> lostMoney(nPeople);
-        vector<int> receiveMoney(nPeople);
+        vector<int> lostMoney(numberOfPeople);
+        vector<int> receiveMoney(numberOfPeople);
 
-        for (int i = 0; i < nPeople; ++i)
+        for (int i = 0; i < numberOfPeople; ++i)
         {
             string name;
             cin >> name;
@@ -29,22 +29,22 @@ int main()
             int sum;
             cin >> sum;
 
-            int nRecievers;
-            cin >> nRecievers;
+            int numberOfReceivers;
+            cin >> numberOfReceivers;
 
             int index = find(begin(names), end(names), name) - begin(names);
 
-            for (int j = 0; j < nRecievers; ++j)
+            for (int j = 0; j < numberOfReceivers; ++j)
             {
                 string friendName;
                 cin >> friendName;
                 int indexFriend = find(begin(names), end(names), friendName) - begin(names);
-                receiveMoney[indexFriend] += sum / nRecievers;
+                receiveMoney[indexFriend] += sum / numberOfReceivers;
             }
 
-            if (nRecievers != 0)
+            if (numberOfReceivers != 0)
             {
-                lostMoney[index] = sum - sum % nRecievers;
+                lostMoney[index] = sum - sum % numberOfReceivers;
             }
         }
         if (!isFirst)
