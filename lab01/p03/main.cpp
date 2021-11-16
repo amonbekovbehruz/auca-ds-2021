@@ -8,7 +8,7 @@ int main() {
     const int kNameWidth = 30;
     const int kAvgWidth = 40;
 
-    cout << setfill('.')<< fixed>>;
+    cout << setfill('.')<< fixed;
     for (string name; cin >> name) 
     {
         double sum = 0;

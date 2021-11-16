@@ -12,7 +12,7 @@ void horizontalManipulation(int vctr, vector<vector<char>> &puzzle, int &x, int 
             puzzle[x-1][y] = temp;
         }
     } else {
-        if(x - 1 >= 0) {
+        if( x - 1 >= 0) {
             x--;
             char temp = puzzle[x][y];
             puzzle[x][y] = ' ';

@@ -84,6 +84,16 @@ public:
 
             switch (cmd)
             {
+            case 0:
+                if (registers[n] != 0)
+                {
+                    instructionPointer = registers[d];
+                }
+                else
+                {
+                    instructionPointer++;
+                }
+                break;
             case 2:
                 runCommand2(d, n);
                 break;
@@ -109,16 +119,6 @@ public:
             case 9:
                 runCommand9(d, n);
                 break;
-            case 0:
-                if (registers[n] != 0)
-                {
-                    instructionPointer = registers[d];
-                }
-                else
-                {
-                    ++instructionPointer;
-                }
-                break;
             }
             res++;
         }
@@ -128,8 +128,6 @@ public:
 
 int main()
 {
-    iostream::sync_with_stdio(false);
-
     int tests;
     cin >> tests >> ws;
 
@@ -139,6 +137,7 @@ int main()
         {
             cout << "\n";
         }
+
         Computer comp;
         comp.readCommands(cin);
 

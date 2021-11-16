@@ -37,4 +37,4 @@ int main()
 
         cout << fixed << setprecision(3) << aboveAverageInPercents << "%" << '\n';
     }
-}
+}   

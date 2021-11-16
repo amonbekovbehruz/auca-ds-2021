@@ -46,7 +46,7 @@ struct BlockWorld
     }
 
     BlockWorld(int n)
-        : mData(n) // initialization
+        : mData(n) 
     {
         for (int i = 0; i < n; i++)
         {

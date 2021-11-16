@@ -286,4 +286,5 @@ TEST_CASE("type std::vector<T>::iterator: it2 - it1")
     REQUIRE((it-it2) == 2);
     REQUIRE(v[it-it2] == 4);
     REQUIRE(it3 == 4);
+
 }
