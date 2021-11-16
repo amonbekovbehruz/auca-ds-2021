@@ -18,7 +18,7 @@ int main()
 
         sort(begin(numbers), end(numbers));
 
-        int mid = numbers[n];
+        int mid = numbers[n / 2];
 
         int ans = 0;
 
