@@ -47,5 +47,15 @@ int main()
                 lostMoney[index] = sum - sum % nRecievers;
             }
         }
+        if (!isFirst)
+        {
+            cout << "\n";
+        }
+
+        for (int i = 0; i < sz(names); ++i)
+        {
+            cout << names[i] << " " << receiveMoney[i] - lostMoney[i] << "\n";
+        }
+        isFirst = false;
     }
 }
