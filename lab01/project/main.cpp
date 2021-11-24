@@ -18,7 +18,7 @@ TEST_CASE("Default constructor")
         REQUIRE(out.str() == "0");
     }
 
-    SUBCASE("Default constructor with no entry")
+    SUBCASE("Constructor with string entry")
     {
         BigInt bigint("123456");
         out << bigint;
@@ -26,8 +26,16 @@ TEST_CASE("Default constructor")
         REQUIRE(out.str() == "123456");
     }
 
-    SUBCASE("Default constructor with no entry")
+    SUBCASE("Constructor with wrong input")
     {
         REQUIRE_THROWS_AS(BigInt bigint("ABCD"), std::runtime_error);
+    }
+
+    SUBCASE("Constructor with entry as int")
+    {
+        BigInt bigint(12345678910);
+        out << bigint;
+
+        REQUIRE(out.str() == "12345678910");
     }
 }

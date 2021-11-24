@@ -8,6 +8,19 @@
 
 class BigInt
 {
+    void applyToVector(const std::string &str, std::vector<int> &vector)
+    {
+        for (char num : str)
+        {
+            if (!(num >= 48 && num <= 57))
+            {
+                throw std::runtime_error("BigInt: invalid input");
+            }
+
+            vector.push_back((int)num - 48);
+        }
+    }
+
     std::vector<int> numbers;
 
 public:
@@ -18,21 +31,16 @@ public:
 
     BigInt(const std::string &nums)
     {
-        for (char num : nums)
-        {
-            if (!(num >= 48 && num <= 57))
-            {
-                throw std::runtime_error("BigInt: invalid input");
-            }
-
-            numbers.push_back((int)num - 48);
-        }
+        applyToVector(nums, numbers);
     }
 
-    BigInt(const long long &num) {
-        
+    BigInt(const long long &num)
+    {
+        std::string str = std::to_string(num);
+
+        applyToVector(str, numbers);
     }
-    
+
     const std::vector<int> getVector() const
     {
         return numbers;
