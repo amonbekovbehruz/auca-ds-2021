@@ -10,17 +10,24 @@ TEST_CASE("Default constructor")
 {
     std::ostringstream out;
 
-    SUBCASE("Default constructor with no entry") {
+    SUBCASE("Default constructor with no entry")
+    {
         BigInt bigint;
         out << bigint;
 
         REQUIRE(out.str() == "0");
     }
 
-    SUBCASE("Default constructor with no entry") {
+    SUBCASE("Default constructor with no entry")
+    {
         BigInt bigint("123456");
         out << bigint;
 
         REQUIRE(out.str() == "123456");
-    }    
+    }
+
+    SUBCASE("Default constructor with no entry")
+    {
+        REQUIRE_THROWS_AS(BigInt bigint("ABCD"), std::runtime_error);
+    }
 }

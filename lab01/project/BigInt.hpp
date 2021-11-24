@@ -20,13 +20,19 @@ public:
     {
         for (char num : nums)
         {
-            if(isalpha(num) || !(num >= 48 && num <= 57)) {
-                throw 
+            if (!(num >= 48 && num <= 57))
+            {
+                throw std::runtime_error("BigInt: invalid input");
             }
+
             numbers.push_back((int)num - 48);
         }
     }
 
+    BigInt(const long long &num) {
+        
+    }
+    
     const std::vector<int> getVector() const
     {
         return numbers;
