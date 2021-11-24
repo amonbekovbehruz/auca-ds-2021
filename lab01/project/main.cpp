@@ -50,6 +50,6 @@ TEST_CASE("Operator +")
         BigInt second("321654987");
         sout << first + second;
 
-        REQUIRE(sout.str() == "445111776");
+        REQUIRE(sout.str() == "445,111,776");
     }
 }

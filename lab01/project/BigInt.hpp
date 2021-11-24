@@ -51,7 +51,7 @@ public:
         return numbers;
     }
 
-    const int size() const
+    const int &size() const
     {
         return (int)numbers.size();
     }
@@ -88,16 +88,15 @@ BigInt operator+(const BigInt &first, const BigInt &second)
     {
         if (firstVector[i] + secondVector[i] > 9)
         {
-            result[i] = firstVector[i] + secondVector[i] % 10;
+            result[i] = (firstVector[i] + secondVector[i]) % 10;
             toAddDigit = true;
         }
         else
         {
+            toAddDigit = false;
             result[i] = firstVector[i] + secondVector[i];
-            if (toAddDigit)
-            {
-                result[i] += 1;
-            }
+            result[i]+= 1;
+
         }
     }
 
