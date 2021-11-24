@@ -39,3 +39,17 @@ TEST_CASE("Default constructor")
         REQUIRE(out.str() == "12345678910");
     }
 }
+
+TEST_CASE("Operator +")
+{
+    std::ostringstream sout;
+
+    SUBCASE("123456789 + 321654987")
+    {
+        BigInt first("123456789");
+        BigInt second("321654987");
+        sout << first + second;
+
+        REQUIRE(sout.str() == "445111776");
+    }
+}
