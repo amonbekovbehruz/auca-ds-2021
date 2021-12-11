@@ -101,6 +101,7 @@ BigInt operator+(BigInt &first, BigInt &second)
         if (toAddDigit)
         {
             result[i]++;
+            toAddDigit = false;
         }
         if ((firstVector[i] + secondVector[i]) >= 10)
         {
@@ -110,6 +111,11 @@ BigInt operator+(BigInt &first, BigInt &second)
         else
         {
             result[i] = firstVector[i] + secondVector[i];
+            if ((firstVector[i] + secondVector[i]) >= 10)
+            {
+                toAddDigit = true;
+                result[i] = (firstVector[i] + secondVector[i]) % 10;
+            }
         }
     }
 
