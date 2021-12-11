@@ -21,6 +21,27 @@ class BigInt
         }
     }
 
+    static int compare(const BigInt &a, const BigInt &b)
+    {
+        if (a.mDigits.size() > b.mDigits.size())
+        {
+            return 1;
+        }
+        if (a.mDigits.size() < b.mDigits.size())
+        {
+            return -1;
+        }
+        for (int i = 0; i < a.mDigits.size(); ++i)
+        {
+            if (a.mDigits[i] != b.mDigits[i])
+            {
+                return (a.mDigits[i] - b.mDigits[i]);
+            }
+        }
+        
+        return 0;
+    }
+
     bool isNegative = false;
     std::vector<int> numbers;
 
@@ -82,6 +103,24 @@ std::ostream &operator<<(std::ostream &sout, const BigInt &r)
 
     return sout;
 }
+
+bool operator==(const BigInt &first, const BigInt &second)
+{
+    if (first.checkForNegativity == second.checkForNegativity && first.getVector == second.getVector)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool operator!=(const BigInt &first, const BigINt &second) {
+    return !(first == second);
+}
+
+
 
 BigInt operator+(BigInt &first, BigInt &second)
 {
