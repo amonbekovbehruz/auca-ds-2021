@@ -38,7 +38,7 @@ class BigInt
                 return (a.mDigits[i] - b.mDigits[i]);
             }
         }
-        
+
         return 0;
     }
 
@@ -119,8 +119,6 @@ bool operator==(const BigInt &first, const BigInt &second)
 bool operator!=(const BigInt &first, const BigINt &second) {
     return !(first == second);
 }
-
-
 
 BigInt operator+(BigInt &first, BigInt &second)
 {
