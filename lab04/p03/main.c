@@ -5,9 +5,9 @@
 
 void printArray(int *start, int *end)
 {
-    for (int i = start; i < end; i++)
+    while (start != end)
     {
-        printf(" %ls", start);
+        printf(" %d", *start++);
     }
 }
 
