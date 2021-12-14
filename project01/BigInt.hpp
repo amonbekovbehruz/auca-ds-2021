@@ -151,9 +151,13 @@ bool operator!=(const BigInt &first, const BigINt &second)
     return !(first == second);
 }
 
-BigInt operator+(BigInt &first, BigInt &second)
+inline BigInt operator+(const BigInt &first, const BigInt &second)
 {
     if (first.isNegative == second.isNegative)
     {
+        BigInt result;
+        result = BigInt::addAbsValues(first, second);
+        return result;
     }
+    int compare = BigInt::compare(first, second);
 }
