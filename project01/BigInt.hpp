@@ -116,46 +116,11 @@ bool operator==(const BigInt &first, const BigInt &second)
     }
 }
 
-bool operator!=(const BigInt &first, const BigINt &second) {
+bool operator!=(const BigInt &first, const BigINt &second)
+{
     return !(first == second);
 }
 
 BigInt operator+(BigInt &first, BigInt &second)
 {
-    std::vector<int> firstVector = first.getVector();
-    std::vector<int> secondVector = second.getVector();
-
-    int minSize = firstVector.size() > secondVector.size() ? secondVector.size() : firstVector.size();
-
-    std::reverse(firstVector.begin(), firstVector.end());
-    std::reverse(secondVector.begin(), secondVector.end());
-
-    std::vector<int> result = firstVector.size() > secondVector.size() ? firstVector : secondVector;
-
-    bool toAddDigit = false;
-    for (int i = 0; i < (int)minSize; i++)
-    {
-        if (toAddDigit)
-        {
-            result[i]++;
-            toAddDigit = false;
-        }
-        if ((firstVector[i] + secondVector[i]) >= 10)
-        {
-            toAddDigit = true;
-            result[i] = (firstVector[i] + secondVector[i]) % 10;
-        }
-        else
-        {
-            result[i] = firstVector[i] + secondVector[i];
-            if ((firstVector[i] + secondVector[i]) >= 10)
-            {
-                toAddDigit = true;
-                result[i] = (firstVector[i] + secondVector[i]) % 10;
-            }
-        }
-    }
-
-    std::reverse(result.begin(), result.end());
-    return BigInt(result);
 }
