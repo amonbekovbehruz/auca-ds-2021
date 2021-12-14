@@ -44,6 +44,34 @@ class BigInt
         return 0;
     }
 
+    static BigInt addAbsValues(const BigInt &first, const BigInt &second)
+    {
+        BigInt result;
+        result.mDigits.clear();
+
+        auto i = first.mDigits.rbegin();
+        auto j = second.mDigits.rbegin();
+
+        int carry = 0;
+        while (i != first.rend() || j != second.rend())
+        {
+            int sum = carry;
+
+            if (i != first.mDigits.rend())
+            {
+                sum += *i;
+                i++;
+            }
+            if (j != second.mDigits.rend())
+            {
+                sum += *j;
+                j++;
+            }
+            result.mDigits.push_back(sum % 10);
+            carry = sum / 10;
+        }
+    }
+
     bool isNegative = false;
     std::vector<int> mDigits;
 
@@ -125,4 +153,7 @@ bool operator!=(const BigInt &first, const BigINt &second)
 
 BigInt operator+(BigInt &first, BigInt &second)
 {
+    if (first.isNegative == second.isNegative)
+    {
+    }
 }
