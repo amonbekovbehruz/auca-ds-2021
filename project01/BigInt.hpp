@@ -8,6 +8,8 @@
 
 class BigInt
 {
+    friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
+    friend BigInt operator+(const BigInt &a, const BigInt &b);
     void applyToVector(const std::string &str, std::vector<int> &vector)
     {
         for (char num : str)
@@ -43,24 +45,24 @@ class BigInt
     }
 
     bool isNegative = false;
-    std::vector<int> numbers;
+    std::vector<int> mDigits;
 
 public:
     BigInt()
     {
-        numbers = std::vector<int>(1, 0);
+        mDigits = std::vector<int>(1, 0);
         isNegative = false;
     };
 
     BigInt(const std::string &nums)
     {
         nums.at(0) == '-' ? isNegative = true : isNegative = false;
-        applyToVector(nums, numbers);
+        applyToVector(nums, mDigits);
     }
 
     BigInt(const std::vector<int> &res)
     {
-        numbers = res;
+        mDigits = res;
     }
 
     BigInt(const long long &num)
@@ -71,17 +73,17 @@ public:
         }
         std::string str = std::to_string(num);
 
-        applyToVector(str, numbers);
+        applyToVector(str, mDigits);
     }
 
     const std::vector<int> getVector() const
     {
-        return numbers;
+        return mDigits;
     }
 
     const int size() const
     {
-        return (int)numbers.size();
+        return (int)mDigits.size();
     }
 
     const bool checkForNegativity() const
