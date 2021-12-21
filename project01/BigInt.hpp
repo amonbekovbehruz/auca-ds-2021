@@ -72,6 +72,10 @@ class BigInt
         }
     }
 
+    static BigInt subAbsValues(const BigInt &first, const BigInt &second)
+    {
+    }
+
     bool isNegative = false;
     std::vector<int> mDigits;
 
@@ -146,6 +150,8 @@ bool operator==(const BigInt &first, const BigInt &second)
     }
 }
 
+
+
 bool operator!=(const BigInt &first, const BigINt &second)
 {
     return !(first == second);
@@ -160,4 +166,8 @@ inline BigInt operator+(const BigInt &first, const BigInt &second)
         return result;
     }
     int compare = BigInt::compare(first, second);
+}
+
+inline BigInt operator-(const BigInt &first, const BigInt &second)
+{
 }
