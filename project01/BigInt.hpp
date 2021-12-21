@@ -150,8 +150,6 @@ bool operator==(const BigInt &first, const BigInt &second)
     }
 }
 
-
-
 bool operator!=(const BigInt &first, const BigINt &second)
 {
     return !(first == second);
