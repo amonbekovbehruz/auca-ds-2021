@@ -298,7 +298,7 @@ inline bool operator<(const BigInt &first, const BigInt &second)
     {
         return false;
     }
-    if (!(first.mIsNegative) && (second.mIsNegative))
+    if (!(first.mIsNegative) && !(second.mIsNegative))
     {
         return (BigInt::cmpAbs(first, second)) < 0;
     }
