@@ -44,6 +44,42 @@ class BigInt
         return 0;
     }
 
+    static BigInt add(const BigInt &a, const BigInt &b)
+    {
+        BigInt r;
+        r.mDigits.clear();
+
+        auto i = a.mDigits.rbegin();
+        auto j = b.mDigits.rbegin();
+
+        int carry = 0;
+        while (i != a.mDigits.rend() || j != b.mDigits.rend())
+        {
+            int sum = carry;
+
+            if (i != a.mDigits.rend())
+            {
+                sum += *i;
+                ++i;
+            }
+            if (j != b.mDigits.rend())
+            {
+                sum += *j;
+                ++j;
+            }
+            r.mDigits.push_back(sum % 10);
+            carry = sum / 10;
+        }
+        if (carry != 0)
+        {
+            r.mDigits.push_back(carry);
+        }
+
+        std::reverse(r.mDigits.begin(), r.mDigits.end());
+
+        return r;
+    }
+
     std::vector<int> mDigits;
     bool mIsNegative;
 
