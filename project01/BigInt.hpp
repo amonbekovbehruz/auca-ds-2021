@@ -12,6 +12,15 @@
 
 class BigInt
 {
+    void makeVector(const std::string &str, std::vector<int> &v) {
+        for (char num: str) {
+            if (!(num >= '0' && num <= '9')) {
+                throw std::runtime_error("BigInt: invalid input");
+            }
+            v.push_back((int) num - '0');
+        }
+    }
+
     std::vector<int> mDigits;
     bool mIsNegative;
 
