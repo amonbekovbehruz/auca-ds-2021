@@ -1,4 +1,14 @@
+#ifndef BIGINT_HPP
+#define BIGINT_HPP
 
+#pragma once
+
+#include <vector>
+#include <iosfwd>
+#include <stdexcept>
+#include <cctype>
+#include <string>
+#include <algorithm>
 
 class BigInt
 {
@@ -67,3 +77,5 @@ public:
         return mDigits;
     }
 }
+
+#endif
