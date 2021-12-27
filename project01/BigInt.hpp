@@ -12,6 +12,32 @@
 
 class BigInt
 {
+    friend std::ostream &operator<<(std::ostream &out, const BigInt &x);
+
+    friend std::istream &operator>>(std::istream &inp, BigInt &x);
+
+    friend BigInt operator+(const BigInt &a, const BigInt &b);
+
+    friend BigInt operator*(const BigInt &a, const BigInt &b);
+
+    friend BigInt operator-(const BigInt &a, const BigInt &b);
+
+    friend BigInt operator%(const BigInt &a, const BigInt &b);
+
+    friend BigInt operator/(const BigInt &a, const BigInt &b);
+
+    friend bool operator==(const BigInt &a, const BigInt &b);
+
+    friend bool operator>(const BigInt &a, const BigInt &b);
+
+    friend bool operator!=(const BigInt &a, const BigInt &b);
+
+    friend bool operator<(const BigInt &a, const BigInt &b);
+
+    friend bool operator>=(const BigInt &a, const BigInt &b);
+
+    friend bool operator<=(const BigInt &a, const BigInt &b);
+
     void makeVector(const std::string &str, std::vector<int> &v)
     {
         for (char num : str)
