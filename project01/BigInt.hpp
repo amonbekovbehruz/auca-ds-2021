@@ -49,8 +49,13 @@ public:
     }
 
     BigInt(long long x)
-
     {
+        string s = std::to_string(x);
+        for (int i = 0; i < (int)s.size(); i++)
+        {
+            mDigits.push_back(s.at(i));
+        }
+        
     }
 
     const std::vector<int> getVector() const
