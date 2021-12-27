@@ -288,6 +288,18 @@ inline BigInt operator-(const BigInt &first, const BigInt &second)
     return BigInt();
 }
 
+BigInt &operator++(BigInt &x)
+{
+    x += x + 1;
+    return x;
+}
+
+BigInt &operator--(BigInt &x)
+{
+    x += x - 1;
+    return x;
+}
+
 inline bool operator<(const BigInt &first, const BigInt &second)
 {
     if (first.mIsNegative && !(second.mIsNegative))
@@ -323,6 +335,81 @@ inline bool operator<=(const BigInt &a, const BigInt &b)
 inline bool operator>=(const BigInt &a, const BigInt &b)
 {
     return !(a < b);
+}
+
+inline std::istream &operator>>(std::istream &inp, BigInt &x)
+{
+    char ch;
+    if (!(inp >> ch))
+    {
+        return inp;
+    }
+
+    if (ch != '+' && ch != '-' && !isdigit(ch))
+    {
+        inp.putback(ch);
+        throw std::runtime_error("Wrong input");
+        return inp;
+    }
+    std::string str;
+    str += ch;
+    while (inp.get(ch) && isdigit(ch))
+    {
+        str += ch;
+    }
+
+    if (inp)
+    {
+        inp.putback(ch);
+    }
+
+    if (str.size() == 1 && (str[0] == '+' || str[0] == '-'))
+    {
+        throw std::runtime_error("Wrong input");
+        return inp;
+    }
+
+    x = BigInt(str);
+
+    inp.clear();
+    return inp;
+}
+
+inline BigInt operator*(const BigInt &first, const BigInt &second)
+{
+    if (first == 0 || second == 0)
+    {
+        return BigInt();
+    }
+    BigInt result = BigInt::multiplication(first, second);
+    result.mIsNegative = first.mIsNegative ^ second.mIsNegative;
+
+    return result;
+}
+
+inline BigInt operator%(const BigInt &first, const BigInt &second)
+{
+    BigInt result = first;
+    BigInt temp;
+
+    if (first == 0)
+    {
+        return BigInt();
+    }
+
+    if (first < second)
+    {
+        return result;
+    }
+
+    while (first > second)
+    {
+        result = result - second;
+    }
+
+    result = temp;
+
+    return result;
 }
 
 #endif
