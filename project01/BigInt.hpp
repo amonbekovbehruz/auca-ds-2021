@@ -192,7 +192,8 @@ public:
     }
 }
 
-inline std::ostream &operator<<(std::ostream &out, const BigInt &first)
+inline std::ostream &
+operator<<(std::ostream &out, const BigInt &first)
 {
     if (first.mIsNegative)
     {
@@ -205,6 +206,16 @@ inline std::ostream &operator<<(std::ostream &out, const BigInt &first)
     }
 
     return out;
+}
+
+bool operator==(const BigInt &a, const BigInt &b)
+{
+    return a.mIsNegative == b.mIsNegative && a.mDigits == b.mDigits;
+}
+
+bool operator!=(const BigInt &a, const BigInt &b)
+{
+    return !(a == b);
 }
 
 #endif
