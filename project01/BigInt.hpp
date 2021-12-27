@@ -322,7 +322,7 @@ inline bool operator<=(const BigInt &a, const BigInt &b)
 
 inline bool operator>=(const BigInt &a, const BigInt &b)
 {
-    return !(b < a);
+    return !(a < b);
 }
 
 #endif
