@@ -16,27 +16,27 @@ class BigInt
 
     friend std::istream &operator>>(std::istream &inp, BigInt &x);
 
-    friend BigInt operator+(const BigInt &a, const BigInt &b);
+    friend BigInt operator+(const BigInt &first, const BigInt &second);
 
-    friend BigInt operator*(const BigInt &a, const BigInt &b);
+    friend BigInt operator*(const BigInt &first, const BigInt &second);
 
-    friend BigInt operator-(const BigInt &a, const BigInt &b);
+    friend BigInt operator-(const BigInt &first, const BigInt &second);
 
-    friend BigInt operator%(const BigInt &a, const BigInt &b);
+    friend BigInt operator%(const BigInt &first, const BigInt &second);
 
-    friend BigInt operator/(const BigInt &a, const BigInt &b);
+    friend BigInt operator/(const BigInt &first, const BigInt &second);
 
-    friend bool operator==(const BigInt &a, const BigInt &b);
+    friend bool operator==(const BigInt &first, const BigInt &second);
 
-    friend bool operator>(const BigInt &a, const BigInt &b);
+    friend bool operator>(const BigInt &first, const BigInt &second);
 
-    friend bool operator!=(const BigInt &a, const BigInt &b);
+    friend bool operator!=(const BigInt &first, const BigInt &second);
 
-    friend bool operator<(const BigInt &a, const BigInt &b);
+    friend bool operator<(const BigInt &first, const BigInt &second);
 
-    friend bool operator>=(const BigInt &a, const BigInt &b);
+    friend bool operator>=(const BigInt &first, const BigInt &second);
 
-    friend bool operator<=(const BigInt &a, const BigInt &b);
+    friend bool operator<=(const BigInt &first, const BigInt &second);
 
     void makeVector(const std::string &str, std::vector<int> &v)
     {
@@ -50,46 +50,46 @@ class BigInt
         }
     }
 
-    static int cmpAbs(const BigInt &a, const BigInt &b)
+    static int cmpAbs(const BigInt &first, const BigInt &second)
     {
-        if (a.mDigits.size() > b.mDigits.size())
+        if (first.mDigits.size() > second.mDigits.size())
         {
             return 1;
         }
-        if (a.mDigits.size() < b.mDigits.size())
+        if (first.mDigits.size() < second.mDigits.size())
         {
             return -1;
         }
-        for (size_t i = 0; i < a.mDigits.size(); ++i)
+        for (size_t i = 0; i < first.mDigits.size(); ++i)
         {
-            if (a.mDigits[i] != b.mDigits[i])
+            if (first.mDigits[i] != second.mDigits[i])
             {
-                return a.mDigits[i] - b.mDigits[i];
+                return first.mDigits[i] - second.mDigits[i];
             }
         }
 
         return 0;
     }
 
-    static BigInt add(const BigInt &a, const BigInt &b)
+    static BigInt add(const BigInt &first, const BigInt &second)
     {
         BigInt result;
         result.mDigits.clear();
 
-        auto i = a.mDigits.rbegin();
-        auto j = b.mDigits.rbegin();
+        auto i = first.mDigits.rbegin();
+        auto j = second.mDigits.rbegin();
 
         int carry = 0;
-        while (i != a.mDigits.rend() || j != b.mDigits.rend())
+        while (i != first.mDigits.rend() || j != second.mDigits.rend())
         {
             int sum = carry;
 
-            if (i != a.mDigits.rend())
+            if (i != first.mDigits.rend())
             {
                 sum += *i;
                 ++i;
             }
-            if (j != b.mDigits.rend())
+            if (j != second.mDigits.rend())
             {
                 sum += *j;
                 ++j;
@@ -107,17 +107,17 @@ class BigInt
         return result;
     }
 
-    static BigInt multiplication(const BigInt &a, const BigInt &b)
+    static BigInt multiplication(const BigInt &first, const BigInt &second)
     {
         BigInt result;
 
-        result.mDigits.resize(a.mDigits.size() + b.mDigits.size());
+        result.mDigits.resize(first.mDigits.size() + second.mDigits.size());
         int shift = 0;
-        for (auto i = b.mDigits.rbegin(); i != b.mDigits.rend(); ++i)
+        for (auto i = second.mDigits.rbegin(); i != second.mDigits.rend(); ++i)
         {
             int carry = 0;
             int currShift = shift;
-            for (auto j = a.mDigits.rbegin(); j != a.mDigits.rend(); ++j)
+            for (auto j = first.mDigits.rbegin(); j != first.mDigits.rend(); ++j)
             {
                 int total = *i * *j + carry;
                 addDigit(result, total % 10, currShift);
@@ -134,6 +134,83 @@ class BigInt
         {
             result.mDigits.erase(result.mDigits.begin());
         }
+
+        return result;
+    }
+
+    static BigInt divide(const BigInt &first, const BigInt &second)
+    {
+        BigInt result;
+
+        result.mDigits.clear();
+
+        if (cmpAbs(first, second) == -1)
+        {
+            return BigInt();
+        }
+        if (cmpAbs(first, second) == 0)
+        {
+            return BigInt(1);
+        }
+
+        if ((!first.mIsNegative && !second.mIsNegative) || (first.mIsNegative && second.mIsNegative))
+        {
+            result.mIsNegative = false;
+        }
+
+        if ((first.mIsNegative && !second.mIsNegative) || (!first.mIsNegative && second.mIsNegative))
+        {
+            result.mIsNegative = true;
+        }
+
+        int counter = 0;
+
+        BigInt zero;
+        zero.mDigits.clear();
+
+        while (counter < first.mDigits.size())
+        {
+            int result = 0;
+
+            for (int i = 0; i < (int)second.mDigits.size(); i++)
+            {
+                zero.mDigits.push_back(first.mDigits[counter]);
+                counter++;
+            }
+
+            if (cmpAbs(zero, second) <= -1)
+            {
+                if (counter++ == first.mDigits.size())
+                {
+                    result.mDigits.push_back(result);
+                    break;
+                }
+                else
+                {
+                    zero.mDigits.push_back(first.mDigits[counter]);
+                    counter++;
+                }
+            }
+
+            int comporator = cmpAbs(zero, second);
+            std::ostringstream sout;
+            //////////////////////////////////////
+            while (comporator >= 0)
+            {
+                sout << zero;
+                zero = sub(zero, second);
+                comporator = cmpAbs(zero, second);
+                result++;
+            }
+            result.mDigits.push_back(result);
+        }
+
+        std::reverse(result.mDigits.begin(), result.mDigits.end());
+        while (result.mDigits.size() > 1 && result.mDigits[result.mDigits.size() - 1] == 0)
+        {
+            result.mDigits.pop_back();
+        }
+        std::reverse(result.mDigits.begin(), result.mDigits.end());
 
         return result;
     }
@@ -234,14 +311,14 @@ operator<<(std::ostream &out, const BigInt &first)
     return out;
 }
 
-bool operator==(const BigInt &a, const BigInt &b)
+bool operator==(const BigInt &a, const BigInt &second)
 {
-    return a.mIsNegative == b.mIsNegative && a.mDigits == b.mDigits;
+    return a.mIsNegative == second.mIsNegative && a.mDigits == second.mDigits;
 }
 
-bool operator!=(const BigInt &a, const BigInt &b)
+bool operator!=(const BigInt &a, const BigInt &second)
 {
-    return !(a == b);
+    return !(a == second);
 }
 
 inline BigInt operator+(const BigInt &first, const BigInt &second)
@@ -344,23 +421,23 @@ inline bool operator<(const BigInt &first, const BigInt &second)
     return (BigInt::cmpAbs(first, second)) > 0;
 }
 
-inline bool operator>(const BigInt &a, const BigInt &b)
+inline bool operator>(const BigInt &a, const BigInt &second)
 {
-    if (a == b)
+    if (a == second)
     {
         return false;
     }
-    return !(a < b);
+    return !(a < second);
 }
 
-inline bool operator<=(const BigInt &a, const BigInt &b)
+inline bool operator<=(const BigInt &a, const BigInt &second)
 {
-    return !(b < a);
+    return !(second < a);
 }
 
-inline bool operator>=(const BigInt &a, const BigInt &b)
+inline bool operator>=(const BigInt &a, const BigInt &second)
 {
-    return !(a < b);
+    return !(a < second);
 }
 
 inline std::istream &operator>>(std::istream &inp, BigInt &x)
