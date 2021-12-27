@@ -288,4 +288,22 @@ inline BigInt operator-(const BigInt &first, const BigInt &second)
     return BigInt();
 }
 
+inline bool operator<(const BigInt &first, const BigInt &second)
+{
+    if (first.mIsNegative && !(second.mIsNegative))
+    {
+        return true;
+    }
+    if (!(first.mIsNegative) && second.mIsNegative)
+    {
+        return false;
+    }
+    if (!(first.mIsNegative) && (second.mIsNegative))
+    {
+        return (BigInt::cmpAbs(first, second)) < 0;
+    }
+
+    return (BigInt::cmpAbs(first, second)) > 0;
+}
+
 #endif
