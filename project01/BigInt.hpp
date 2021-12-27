@@ -41,7 +41,39 @@ class BigInt
                 return a.mDigits[i] - b.mDigits[i];
             }
         }
+
         return 0;
+    }
+
+    static BigInt multiplication(const BigInt &a, const BigInt &b)
+    {
+        BigInt result;
+
+        result.mDigits.resize(a.mDigits.size() + b.mDigits.size());
+        int shift = 0;
+        for (auto i = b.mDigits.rbegin(); i != b.mDigits.rend(); ++i)
+        {
+            int carry = 0;
+            int currShift = shift;
+            for (auto j = a.mDigits.rbegin(); j != a.mDigits.rend(); ++j)
+            {
+                int total = *i * *j + carry;
+                addDigit(r, total % 10, currShift);
+                carry = total / 10;
+                ++currShift;
+            }
+            if (carry != 0)
+            {
+                addDigit(result, carry, currShift);
+            }
+            ++shift;
+        }
+        if (result.mDigits.front() == 0)
+        {
+            result.mDigits.erase(r.mDigits.begin());
+        }
+
+        return result;
     }
 
     static BigInt add(const BigInt &a, const BigInt &b)
