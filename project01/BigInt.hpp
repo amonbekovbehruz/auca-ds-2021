@@ -47,8 +47,8 @@ class BigInt
 
     static BigInt add(const BigInt &a, const BigInt &b)
     {
-        BigInt r;
-        r.mDigits.clear();
+        BigInt result;
+        result.mDigits.clear();
 
         auto i = a.mDigits.rbegin();
         auto j = b.mDigits.rbegin();
@@ -68,17 +68,17 @@ class BigInt
                 sum += *j;
                 ++j;
             }
-            r.mDigits.push_back(sum % 10);
+            result.mDigits.push_back(sum % 10);
             carry = sum / 10;
         }
         if (carry != 0)
         {
-            r.mDigits.push_back(carry);
+            result.mDigits.push_back(carry);
         }
 
-        std::reverse(r.mDigits.begin(), r.mDigits.end());
+        std::reverse(result.mDigits.begin(), result.mDigits.end());
 
-        return r;
+        return result;
     }
 
     static BigInt multiplication(const BigInt &a, const BigInt &b)
@@ -94,7 +94,7 @@ class BigInt
             for (auto j = a.mDigits.rbegin(); j != a.mDigits.rend(); ++j)
             {
                 int total = *i * *j + carry;
-                addDigit(r, total % 10, currShift);
+                addDigit(result, total % 10, currShift);
                 carry = total / 10;
                 ++currShift;
             }
@@ -106,15 +106,15 @@ class BigInt
         }
         if (result.mDigits.front() == 0)
         {
-            result.mDigits.erase(r.mDigits.begin());
+            result.mDigits.erase(result.mDigits.begin());
         }
 
         return result;
     }
 
-    static void addDigit(BigInt &r, int d, int shift)
+    static void addDigit(BigInt &result, int d, int shift)
     {
-        auto i = r.mDigits.rbegin() + shift;
+        auto i = result.mDigits.rbegin() + shift;
         *i += d;
         int carry = *i / 10;
         *i %= 10;
@@ -216,6 +216,76 @@ bool operator==(const BigInt &a, const BigInt &b)
 bool operator!=(const BigInt &a, const BigInt &b)
 {
     return !(a == b);
+}
+
+inline BigInt operator+(const BigInt &first, const BigInt &second)
+{
+    if (first.mIsNegative == second.mIsNegative)
+    {
+        BigInt result = BigInt::addAbsValues(first, second);
+        result.mIsNegative = first.mIsNegative;
+        return result;
+    }
+    int cmp = BigInt::cmpAbs(first, second);
+    if (cmp == 0)
+    {
+        return BigInt();
+    }
+
+    if (cmp > 0)
+    {
+        BigInt result = BigInt::sub(first, second);
+        result.mIsNegative = first.mIsNegative;
+        return result;
+    }
+    else if (cmp < 0)
+    {
+        BigInt result = BigInt::sub(second, first);
+        result.mIsNegative = second.mIsNegative;
+        return result;
+    }
+
+    return BigInt();
+}
+
+inline BigInt operator-(const BigInt &first, const BigInt &second)
+{
+    if (!first.mIsNegative && second.mIsNegative)
+    {
+        BigInt result = BigInt::addAbsValues(first, second);
+        result.mIsNegative = false;
+        return result;
+    }
+
+    if (first.mIsNegative && !second.mIsNegative)
+    {
+        BigInt result = BigInt::addAbsValues(first, second);
+        result.mIsNegative = true;
+        return result;
+    }
+
+    if (first.mIsNegative == second.mIsNegative)
+    {
+        int cmp = BigInt::cmpAbs(first, second);
+        if (cmp == 0)
+        {
+            return BigInt();
+        }
+
+        if (cmp > 0)
+        {
+            BigInt result = BigInt::sub(first, second);
+            result.mIsNegative = first.mIsNegative;
+            return result;
+        }
+        else
+        {
+            BigInt result = BigInt::sub(second, first);
+            result.mIsNegative = true;
+            return result;
+        }
+    }
+    return BigInt();
 }
 
 #endif
