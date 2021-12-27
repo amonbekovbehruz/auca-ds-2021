@@ -306,4 +306,13 @@ inline bool operator<(const BigInt &first, const BigInt &second)
     return (BigInt::cmpAbs(first, second)) > 0;
 }
 
+inline bool operator>(const BigInt &a, const BigInt &b)
+{
+    if (a == b)
+    {
+        return false;
+    }
+    return !(a < b);
+}
+
 #endif
