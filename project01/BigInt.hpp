@@ -45,37 +45,6 @@ class BigInt
         return 0;
     }
 
-    static BigInt multiplication(const BigInt &a, const BigInt &b)
-    {
-        BigInt result;
-
-        result.mDigits.resize(a.mDigits.size() + b.mDigits.size());
-        int shift = 0;
-        for (auto i = b.mDigits.rbegin(); i != b.mDigits.rend(); ++i)
-        {
-            int carry = 0;
-            int currShift = shift;
-            for (auto j = a.mDigits.rbegin(); j != a.mDigits.rend(); ++j)
-            {
-                int total = *i * *j + carry;
-                addDigit(r, total % 10, currShift);
-                carry = total / 10;
-                ++currShift;
-            }
-            if (carry != 0)
-            {
-                addDigit(result, carry, currShift);
-            }
-            ++shift;
-        }
-        if (result.mDigits.front() == 0)
-        {
-            result.mDigits.erase(r.mDigits.begin());
-        }
-
-        return result;
-    }
-
     static BigInt add(const BigInt &a, const BigInt &b)
     {
         BigInt r;
@@ -110,6 +79,52 @@ class BigInt
         std::reverse(r.mDigits.begin(), r.mDigits.end());
 
         return r;
+    }
+
+    static BigInt multiplication(const BigInt &a, const BigInt &b)
+    {
+        BigInt result;
+
+        result.mDigits.resize(a.mDigits.size() + b.mDigits.size());
+        int shift = 0;
+        for (auto i = b.mDigits.rbegin(); i != b.mDigits.rend(); ++i)
+        {
+            int carry = 0;
+            int currShift = shift;
+            for (auto j = a.mDigits.rbegin(); j != a.mDigits.rend(); ++j)
+            {
+                int total = *i * *j + carry;
+                addDigit(r, total % 10, currShift);
+                carry = total / 10;
+                ++currShift;
+            }
+            if (carry != 0)
+            {
+                addDigit(result, carry, currShift);
+            }
+            ++shift;
+        }
+        if (result.mDigits.front() == 0)
+        {
+            result.mDigits.erase(r.mDigits.begin());
+        }
+
+        return result;
+    }
+
+    static void addDigit(BigInt &r, int d, int shift)
+    {
+        auto i = r.mDigits.rbegin() + shift;
+        *i += d;
+        int carry = *i / 10;
+        *i %= 10;
+        while (carry != 0)
+        {
+            ++i;
+            *i += carry;
+            carry = *i / 10;
+            *i %= 10;
+        }
     }
 
     std::vector<int> mDigits;
@@ -175,6 +190,21 @@ public:
     {
         return mDigits;
     }
+}
+
+inline std::ostream &operator<<(std::ostream &out, const BigInt &first)
+{
+    if (first.mIsNegative)
+    {
+        out << "-";
+    }
+
+    for (auto digit : first.mDigits)
+    {
+        out << digit;
+    }
+
+    return out;
 }
 
 #endif
