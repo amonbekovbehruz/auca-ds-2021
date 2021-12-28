@@ -1,67 +1,67 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
-#include <string>
+#include <vector>
 
 using namespace std;
 
-struct specialString
+struct F
 {
-    string s;
-    int msr;
-};
+    char letter;
+    int count;
 
-int measure(string str)
-{
-    int count = 0;
-    for (int i = 0; i < str.length(); i++)
+    F(char aLetter, int aCount)
+        : letter(aLetter), count(aCount)
     {
-        for (int j = i + 1; j < str.length(); j++)
-        {
-            if (str[i] > str[j])
-            {
-                count++;
-            }
-        }
     }
-    return count;
-}
+};
 
 int main()
 {
-    int number;
-    cin >> number;
+    int nTest;
+    cin >> nTest;
 
-    while (number--)
+    for (int caseN = 1; caseN <= nTest; caseN++)
     {
-        int length;
-        int elements;
-        cin >> length >> elements;
-        bool isEmpty = false;
+        int R, C, M, N;
+        cin >> R >> C >> M >> N;
 
-        vector<specialString> vec(elements);
-
-        for (int i = 0; i < elements; i++)
+        vector<F> vec;
+        vector<int> counter(100, 0);
+        for (int j = 0; j < R; j++)
         {
-            cin >> vec[i].s;
-            vec[i].msr = measure(vec[i].s);
+            string str;
+            cin >> str;
+            for (auto i : str)
+            {
+                counter[i]++;
+            }
         }
 
-        stable_sort(vec.begin(), vec.end(), [](specialString x, specialString y) {
-            return x.msr < y.msr;
-        });
-
-        if (isEmpty)
+        for (int i = 0; i < counter.size(); i++)
         {
-            cout << endl;
+            if (counter[i] != 0)
+            {
+                vec.push_back(F(i, counter[i]));
+            }
         }
-        isEmpty = true;
+        sort(vec.begin(), vec.end(), [](F x, F y)
+             { return y.count < x.count; });
 
-        for (int i = 0; i < elements; i++)
+        int maxN = vec[0].count;
+
+        int result = M * maxN;
+
+        for (int i = 1; i < vec.size(); i++)
         {
-            cout << vec[i].s << endl;
+            if (vec[i].count == maxN)
+            {
+                result += M * maxN;
+            }
+            else
+            {
+                result += N * vec[i].count;
+            }
         }
+        cout << "Case " << caseN << ": " << result << endl;
     }
 }
-
-
