@@ -26,7 +26,7 @@ int main()
         cin >> R >> C >> M >> N;
 
         vector<F> vec;
-        vector<int> counter(100, 0); //  filling the counter vector with the number frequencies
+        vector<int> counter(100, 0);
 
         for (int j = 0; j < R; j++)
         {
@@ -60,7 +60,7 @@ int main()
             }
             else
             {
-                result += vec[i].count;
+                result += N * vec[i].count;
             }
         }
         cout << "Case " << caseN << ": " << result << endl;
