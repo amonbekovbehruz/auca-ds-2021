@@ -37,16 +37,16 @@ int main()
 
     for (int i = 0; i < m; i++)
     {
-        int points = 1;
+        int points = 0;
 
-        for (string w; cin >> w )
+        for (string w; cin >> w && (w != ".");)
         {
             auto p = lower_bound(begin(skills), end(skills), Skill(w, 0), [](const Skill &s1, const Skill &s2)
                                  { return s1.mName < s2.mName; });
 
             if (p != end(skills) && p->mName == w)
             {
-                points += mPoints;
+                points += p->mPoints;
             }
         }
         cout << points << "\n";
